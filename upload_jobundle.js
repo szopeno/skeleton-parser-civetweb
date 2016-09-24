@@ -20,7 +20,7 @@ function uploadJobundle(oData) {
 
   //formData.append('jobundle_sizes[]', file.size);
   //formData.append('jobundle_names[]', file.name);
-  formData.append('jobundles[]', file, file.name);
+  formData.append('file[archive]', file, file.name);
  }
 
   var xhr = new XMLHttpRequest();

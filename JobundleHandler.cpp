@@ -18,11 +18,11 @@ int jobundle_field_found( const char * key,const char *filename, char *path, siz
 {
     //TODO check if it is really a zip file
     //TODO different handling if this is pure jpdl
-    printf("KEY %s FILENAME %s PATH %s\n", key, filename, path);
-    if ( strcmp(key,"jobundles[]") == 0 ) {
+    //printf("KEY %s FILENAME %s PATH %s\n", key, filename, path);
+    if ( strcmp(key,"file[archive]") == 0 ) {
         snprintf( path, pathlen, "%s/%s",TEMPDIR,filename);
         //strncpy( path, TEMPDIR , pathlen);
-        printf("PREPARING %s for %s\n", path, filename);
+        //printf("PREPARING %s for %s\n", path, filename);
         return FORM_FIELD_STORAGE_STORE;
     }
     return FORM_FIELD_STORAGE_SKIP;
@@ -37,11 +37,11 @@ int jobundle_field_get( const char *key, const char *value, size_t valuelen, voi
 
 int jobundle_field_stored( const char *path, long long file_size, void *user_data)
 {
-    printf("STORED %s\n", path);
+    //printf("STORED %s\n", path);
     ZipArchive::Ptr archive = ZipFile::Open(path);
 
     int noe = archive->GetEntriesCount();
-    printf("N.of.E %d \n",noe);
+    //printf("N.of.E %d \n",noe);
 
     std::string outPath("jobs/templates/");
     std::string base(basename( path ));
@@ -59,11 +59,11 @@ int jobundle_field_stored( const char *path, long long file_size, void *user_dat
         std::string name = entry->GetFullName();
         std::string out = outPath + name;
         if (entry->IsDirectory()) {
-	    std::cout << "Creating directory " << out << std::endl;
+	//    std::cout << "Creating directory " << out << std::endl;
             mkdir( out.c_str(), 0766 );
             continue;
         }
-        std::cout << "Extracting " << out << std::endl;
+     //   std::cout << "Extracting " << out << std::endl;
         ZipFile::ExtractFile( path, name, out );
     }
     remove( path );
@@ -95,7 +95,6 @@ bool JobundleHandler::handlePost(CivetServer *server, struct mg_connection *conn
 
     
         struct mg_form_data_handler fdh = {jobundle_field_found, jobundle_field_get, jobundle_field_stored, 0};
-    printf("oops\n");
        const struct mg_request_info *req_info = mg_get_request_info(conn);
 	long long rlen, wlen;
 	long long nlen = 0;
@@ -148,9 +147,9 @@ printf("req_info->localuri %s req_info->quesry_String %s request_uri\n", req_inf
         int i =0;
         int res=1;
 
-        int fd = open("dupa", O_RDWR | O_CREAT | O_TRUNC, 0600);
-        write( fd, membuf, tlen);
-        close(fd);
+  //       int fd = open("dupa", O_RDWR | O_CREAT | O_TRUNC, 0600);
+  //      write( fd, membuf, tlen);
+  //      close(fd);
         
 printf("\nOK, skonczyłem\n");
 
