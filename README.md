@@ -10,5 +10,5 @@ Because Elixir implementation proved to be only slightly slower, but was faster 
 based implementation is abandoned. It is uploaded here only because it will be referenced in our papers sent to scientific
 conferences (for comparison purposes only, in spirit of open science).
 
-
+In case of any problems with compiling or running this example, contact me at (adanilecki -at- cs put poznan pl)
 A.D.Danilecki
